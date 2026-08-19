@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.DS_Store
+
+# Legacy assets retained locally but unused by the TypeScript redesign
+assets/library/
+assets/projects/
+assets/admin.css
+assets/admin.js
+assets/data.js
+assets/main.js
+assets/styles.css
+assets/variants.css
+assets/variants.js
+
+# Superseded design explorations
+design-options.html
+editorial-contrast.html
+gallery-calm.html
+material-warmth.html
