@@ -82,7 +82,7 @@ function adminSetupPage() {
 }
 
 function adminLoginPage() {
-  return `<main class="admin-auth"><form id="admin-login"><img src="/assets/brand/pgs-logo.png" alt="PGSA logo"><p class="eyebrow"><span></span>PGSA content studio</p><h1>Sign in</h1><label><span>Username</span><input required name="username" autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9._-]+" placeholder="pgsgreenAdmin"></label><label><span>Password</span><input required type="password" name="password" autocomplete="current-password"></label><button class="button-dark" type="submit">Sign in ${icon('arrow')}</button><p class="admin-auth-status">${loadError ? esc(loadError) : ''}</p><a href="/" data-link>← Return to website</a></form></main>`;
+  return `<main class="admin-auth"><form id="admin-login"><img src="/assets/brand/pgs-logo.png" alt="PGSA logo"><p class="eyebrow"><span></span>PGSA content studio</p><h1>Sign in</h1><label><span>Username</span><input required name="username" autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9._\\-]+" placeholder="pgsgreenAdmin"></label><label><span>Password</span><input required type="password" name="password" autocomplete="current-password"></label><button class="button-dark" type="submit">Sign in ${icon('arrow')}</button><p class="admin-auth-status">${loadError ? esc(loadError) : ''}</p><a href="/" data-link>← Return to website</a></form></main>`;
 }
 
 function projectForm(p?: Project) {
