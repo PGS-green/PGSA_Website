@@ -1,6 +1,9 @@
 node_modules/
 dist/
 .DS_Store
+.env
+.env.local
+.env.*.local
 
 # Legacy assets retained locally but unused by the TypeScript redesign
 assets/library/
@@ -18,3 +21,4 @@ design-options.html
 editorial-contrast.html
 gallery-calm.html
 material-warmth.html
+.gstack/
