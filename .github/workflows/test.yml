@@ -1,11 +1,11 @@
-name: Test
+name: Build
 
 on:
   push:
   pull_request:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,5 +14,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test
+      # Typecheck and build. The previous workflow also ran `npm test`, which
+      # belonged to the old root app removed in this change; the new frontend
+      # has no suite yet, so asserting one would just fail every push.
+      - run: npx tsc -b --noEmit
       - run: npm run build
