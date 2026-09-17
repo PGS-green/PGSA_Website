@@ -1,9 +1,9 @@
-import { Figure } from "../components/Figure";
 import { PageHeader } from "../components/PageHeader";
 import { ContactBandLight } from "../components/sections/ContactBand";
 import { PracticeRecord } from "../components/sections/PracticeRecord";
 import { TeamGrid } from "../components/sections/TeamGrid";
 import { Container } from "../components/ui";
+import { useVisibleProjects } from "../lib/projectStore";
 
 /**
  * Only content the practice has actually published appears here.
@@ -13,6 +13,11 @@ import { Container } from "../components/ui";
  * practice's own material, so it has been removed.
  */
 export function About() {
+  const projects = useVisibleProjects();
+  const hero =
+    projects.find((project) => project.featured && project.images.length) ??
+    projects.find((project) => project.images.length);
+
   return (
     <>
       <PageHeader
@@ -28,12 +33,18 @@ export function About() {
       />
 
       <Container>
-        <Figure
-          alt="Al Munawara International School campus frontage"
-          id="projects/7-1"
-          priority
-          ratio="16 / 9"
-          sizes="100vw"
+        {/* Drawn from the live archive rather than a bundled file, so it can
+            never point at an asset that has been moved or removed. */}
+        <div
+          aria-label={hero ? `${hero.name}, ${hero.location}` : undefined}
+          className="w-full bg-[#F4F3F3] bg-cover bg-center"
+          role={hero ? "img" : undefined}
+          style={{
+            aspectRatio: "16 / 9",
+            backgroundImage: hero?.images[0]
+              ? `url(${hero.images[0]})`
+              : undefined,
+          }}
         />
       </Container>
 

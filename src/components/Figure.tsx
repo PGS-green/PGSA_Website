@@ -29,6 +29,13 @@ export function Figure({
   const media = getMedia(id);
   const [loaded, setLoaded] = useState(false);
 
+  /*
+   * A failed load must clear the placeholder too. Without this, a missing file
+   * leaves the blurred LQIP on screen permanently — which looks like a slow
+   * connection rather than a broken path, so it hides the actual fault.
+   */
+  const [failed, setFailed] = useState(false);
+
   if (!media) {
     // A missing id is a content bug, not a runtime one — keep the slot, and make
     // it obvious in dev rather than collapsing the layout silently.
@@ -50,7 +57,7 @@ export function Figure({
         aria-hidden="true"
         alt=""
         className={`absolute inset-0 w-full h-full object-cover scale-105 blur-xl transition-opacity duration-500 ${
-          loaded ? "opacity-0" : "opacity-100"
+          loaded || failed ? "opacity-0" : "opacity-100"
         }`}
         src={media.lqip}
       />
@@ -69,6 +76,7 @@ export function Figure({
           decoding={priority ? "sync" : "async"}
           fetchPriority={priority ? "high" : "auto"}
           loading={priority ? "eager" : "lazy"}
+          onError={() => setFailed(true)}
           onLoad={() => setLoaded(true)}
           sizes={sizes}
           src={media.fallback}

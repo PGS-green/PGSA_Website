@@ -1,11 +1,20 @@
-import { Figure } from "../Figure";
+import { useVisibleProjects } from "../../lib/projectStore";
 import { ButtonLink, Container, Eyebrow } from "../ui";
 
 /**
  * The one place on the page where the serif runs at near-hero scale again.
  * Text left, a single tall image right — no stacked or offset image collage.
+ *
+ * The image comes from the project data rather than a bundled file, so it
+ * changes with the archive instead of pointing at a fixed asset that can go
+ * missing. It skips the featured project, which already runs full-bleed above.
  */
 export function StudioStatement() {
+  const projects = useVisibleProjects();
+  const feature =
+    projects.find((project) => !project.featured && project.images.length) ??
+    projects.find((project) => project.images.length);
+
   return (
     <section className="py-16 sm:py-24 md:py-32 bg-[#F4F3F3]" id="studio">
       <Container>
@@ -29,11 +38,16 @@ export function StudioStatement() {
             </div>
           </div>
 
-          <Figure
-            alt="MR Hospital, a healthcare project by PGSA"
-            id="projects/9-1"
-            ratio="3 / 4"
-            sizes="(max-width: 768px) 100vw, 40vw"
+          <div
+            aria-label={feature ? `${feature.name}, ${feature.location}` : undefined}
+            className="w-full bg-white bg-cover bg-center"
+            role={feature ? "img" : undefined}
+            style={{
+              aspectRatio: "3 / 4",
+              backgroundImage: feature?.images[0]
+                ? `url(${feature.images[0]})`
+                : undefined,
+            }}
           />
         </div>
       </Container>
