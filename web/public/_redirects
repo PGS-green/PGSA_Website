@@ -1,0 +1,3 @@
+# Single-page app: every path must serve index.html so client routing can take
+# over. Without this a direct hit on /about returns 404 on static hosting.
+/*  /index.html  200
