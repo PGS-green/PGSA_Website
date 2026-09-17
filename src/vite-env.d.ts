@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_SUPABASE_URL?: string;
+  /** Browser-safe publishable (anon) key. Never the service-role key. */
   readonly VITE_SUPABASE_PUBLISHABLE_KEY?: string;
 }
 
