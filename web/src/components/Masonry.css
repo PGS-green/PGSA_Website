@@ -1,0 +1,97 @@
+/*
+ * Masonry — React Bits structure, restyled for the PGSA theme.
+ *
+ * Class names are namespaced (upstream ships bare `.list` / `.item-wrapper` /
+ * `.item-img`, which are far too generic for a global stylesheet). The skin
+ * drops upstream's 10px radius and heavy drop shadow: images elsewhere on this
+ * site are square-cornered and unshadowed, and a grid of floating rounded cards
+ * reads as a widget rather than as the practice's work.
+ */
+
+.masonry-list {
+  position: relative;
+  width: 100%;
+}
+
+.masonry-item {
+  position: absolute;
+  /*
+   * Upstream sets `will-change: transform, width, height, opacity` here, which
+   * promotes every tile to a permanent compositor layer. With a full archive of
+   * large images that was enough to wedge the renderer and stop the whole page
+   * painting — the same failure the depth carousel hit. GSAP layerises these
+   * while they animate anyway.
+   */
+  padding: 6px;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+}
+
+.masonry-item:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: -2px;
+}
+
+.masonry-item > .masonry-img {
+  position: relative;
+  overflow: hidden;
+  background-color: #f4f3f3;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * Caption. Normally a photograph carries no type on this site, but a gallery
+ * tile has no room beneath it for a hairline caption, and an unlabelled grid
+ * of buildings tells the visitor nothing. It stays hidden until hover/focus.
+ */
+.masonry-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.masonry-item:hover .masonry-caption,
+.masonry-item:focus-visible .masonry-caption {
+  opacity: 1;
+}
+
+.masonry-caption__title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #191919;
+  line-height: 1.3;
+}
+
+.masonry-caption__meta {
+  font-size: 12px;
+  color: rgba(25, 25, 25, 0.6);
+  line-height: 1.3;
+}
+
+.masonry-color-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(255, 0, 150, 0.5), rgba(0, 150, 255, 0.5));
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .masonry-item {
+    will-change: auto;
+  }
+  .masonry-caption {
+    transition: none;
+  }
+}

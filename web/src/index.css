@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/*
+ * Tailwind v4 reads theme config from CSS rather than tailwind.config.js.
+ * These two tokens are the `fontFamily` config from the spec:
+ *   sans:  ['Inter', 'sans-serif']
+ *   serif: ['P22 Mackinac W01 Book', 'Georgia', 'serif']
+ */
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "P22 Mackinac W01 Book", Georgia, serif;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #191919;
+}

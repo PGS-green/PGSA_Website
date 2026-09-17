@@ -1,0 +1,10 @@
+node_modules
+dist
+*.tsbuildinfo
+
+# Real Supabase credentials. Only .env.example belongs in version control.
+.env
+.env.local
+.env.*.local
+
+.DS_Store
